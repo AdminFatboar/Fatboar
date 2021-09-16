@@ -1,0 +1,9 @@
+User-agent: *
+Disallow: 
+Disallow: /admin
+Disallow: /api
+Disallow: /employer
+Disallow: /admin
+Disallow: /public
+Disallow: /storage
+Sitemap: https://fat-boar.fr/sitemap.xml

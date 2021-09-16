@@ -1,0 +1,46 @@
+<IfModule mod_rewrite.c>
+    <IfModule mod_negotiation.c>
+        Options -MultiViews
+    </IfModule>
+
+    RewriteEngine On
+
+    # Redirect Trailing Slashes...
+    RewriteCond %{HTTPS} off 
+    RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301] 
+	
+	RewriteCond %{HTTP_HOST} ^www.fat-boar\.fr$ [NC]
+	RewriteRule ^(.*)$ https://fat-boar.fr/$1 [R=301,L]
+
+    # Handle Front Controller...
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteRule ^ index.php [L]
+	
+	# BEGIN Expires-Headers
+		<IfModule mod_expires.c>
+		<FilesMatch "\.(js|css)$">
+			ExpiresActive On
+			ExpiresDefault "access plus 1 weeks"
+		</FilesMatch>
+		</IfModule>
+	# END Expires-Headers
+
+	# BEGIN Cache-Control-Headers
+		<ifmodule mod_headers.c>
+		<filesmatch "(avif|ico|jpeg|jpe|jpg|svg|png|css|js)$">
+			Header set Cache-Control "max-age=604800, public"
+		</filesmatch>
+		</ifmodule>
+	# END Cache-Control-Headers
+	
+# Disable index view
+Options -Indexes
+
+# Hide a specific file
+<Files .env>
+    Order allow,deny
+    Deny from all
+</Files>
+</IfModule>
+
