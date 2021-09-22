@@ -11,7 +11,7 @@ use App\Admin;
 use App\Ticket;
 use Session;
 use Illuminate\Support\Str;
-
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 
 use App\Rules\PasswordLenght;
@@ -103,4 +103,22 @@ class UserAPIController extends Controller
 
         return response()->json(['success' => true]);
     }
+	
+	public function GetUserById (Request $request){
+		$users = DB::table('users')->get();
+		foreach ($users as $user)
+		{
+			var_dump($user->name);
+		}
+		return response()->json(['users'=> $users], 200);
+	}
+	
+	public function GetTickets (Request $request){
+		$tickets = DB::table('tickets')->get();
+		foreach ($tickets as $ticket)
+		{
+			var_dump($tickets->collapse());
+		}
+		return response()->json(['tickets'=> $tickets], 200);
+	}
 }
