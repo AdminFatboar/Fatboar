@@ -3,11 +3,14 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 use App\Ticket;
 use App\ValidTicket;
 use Auth;
 use App\WinPercent;
 use Session;
+use App\User;
+use Illuminate\Support\Facades\Validator;
 
 class HomeController extends Controller
 {
@@ -56,7 +59,7 @@ public function test(Request $request)
             }
 
             $data = $request->validate([
-                'ticket' => 'required|numeric|unique:tickets,number',
+                'ticket' => 'required|unique:valid_tickets,number|numeric|min:10|max:10',
             ]);
 
             $ticket = new Ticket();
@@ -67,10 +70,13 @@ public function test(Request $request)
             $ticket->reward_id = $winPercent->reward_id;
 
             $ticket->save();
-
-            Session::flash('message', 'Billet validé. Rendez-vous dans votre espace client afin de découvrir votre récompense !'); 
-            Session::flash('message_type', 'success');
+			
+			
+            Session::flash('message', 'Billet validé. Votre lot sera délivré d\'ici 24h par l\'un de nos collaborateurs. Mais... en attendant, voici un aperçu de votre récompense. Vous avez obtenu un: '); 
+			Session::put('ticketsReussi', $ticket->reward->name);
+            Session::flash('message_type1', 'success');
             Session::flash('message_icon', 'fas fa-check-circle');
+			
         }
 
         return view('user.competition');
@@ -121,24 +127,37 @@ public function test(Request $request)
         return redirect('/');
     }
 
+
     public function userProfile(Request $request)
     {
         if($request->isMethod('post'))
         {
             $user = Auth::user();
+            $validator = Validator::make($request->all(),[
+                'firstname' => 'required|alpha|max:30',
+                'lastname' => 'required|alpha|max:30',
+            ]);
+            if ($validator->fails()) {
+                // die('ttt');
+                return back()->withErrors($validator);
+               
+                // return back();
+            }
             $user->firstname = $request->firstname;
             $user->lastname = $request->lastname;
 
             if($request->password)
-            $user->password = $request->password;
+                $user->password = $request->password;
 
-            $user->website = $request->website;
             $user->save();
-            return redirect()->route('user.profile');
+            return redirect()->route('user.profile')->with('success', 'Votre profil a été mis à jour.');
+        
+            
         }
         return view('user.useraccount');
     }
 
+        
     public function deleteProfile(){
         $user = Auth::user();
 
@@ -171,6 +190,7 @@ public function test(Request $request)
         return view('cookies');
     }
 	
+
 	
 }
 						

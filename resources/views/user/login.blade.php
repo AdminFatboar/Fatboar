@@ -43,12 +43,24 @@
                                         @csrf
                                             <h3 class="font-weight-bold my-4 pb-2 text-center">Connexion</h3>
 											
-											<label for="email" class="form-label">E-mail</label>
-                                            <input name="email" type="email" class="form-control mb-4" id="email" placeholder="Entrez votre email">
-											
-											<label for="password" class="form-label">Mot de passe</label>
-                                            <input name="password" type="password" class="form-control" id="password" placeholder="Entrez votre mot de passe">
-                                            
+											<label for="email" class=" form-label">E-mail</label>
+                                            <input name="email" type="email" class="@error('email') is-invalid @enderror form-control mb-4" id="email" placeholder="Entrez votre email">
+											@error('email')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                            @enderror
+
+
+											<label for="password" class=" form-label">Mot de passe</label>
+                                            <input name="password" type="password" class="@error('password') is-invalid @enderror form-control" id="password" placeholder="Entrez votre mot de passe">
+                                            @error('password')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                            @enderror
+
+
                                             @if (Route::has('password.request'))
                                             <small id="passwordHelpBlock" class="form-text text-right blue-text">
                                                 <a href="{{ route('password.request') }}">Mot de passe oublié</a>

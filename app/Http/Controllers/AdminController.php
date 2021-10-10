@@ -20,6 +20,7 @@ use App\Rules\PasswordLenght;
 use App\Rules\PasswordLower;
 use App\Rules\PasswordUpper;
 use App\Rules\PasswordSpec;
+use Illuminate\Support\Facades\Validator;
 
 class AdminController extends Controller
 {
@@ -27,6 +28,11 @@ class AdminController extends Controller
     {
 
         if ($request->isMethod('post')) {
+            $validator = Validator::make($request->all(), [
+                'email' => ['required', 'string', 'email', 'max:255', 'unique:users,email'],
+                'password' => ['required', 'confirmed', new PasswordLenght, new PasswordUpper, new PasswordLower, new PasswordSpec],
+              ]);
+            
             $data = $request->all();
             if (Auth::guard('admin')->attempt(['email' => $data['email'], 'password' => $data['password']])) {
                 $auth = Admin::where("email", $data['email'])->first();
@@ -34,7 +40,7 @@ class AdminController extends Controller
 
                 return redirect('/admin/page1');
             } else {
-                return redirect('/admin/login')->with('flash_message_error', 'Incorrent username or password');
+                return redirect()->back()->withErrors($validator)->withInput();
             }
         }
         return view('admin.login');
@@ -200,5 +206,9 @@ class AdminController extends Controller
         return Excel::download(new UsersExport, 'users.xlsx');
 
         
+    }
+
+    public function kpi(){
+        return view('kpi');
     }
 }

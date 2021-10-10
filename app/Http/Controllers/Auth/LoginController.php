@@ -9,6 +9,11 @@ use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Laravel\Socialite\Facades\Socialite;
 use Auth;
 use Hash;
+use Illuminate\Support\Facades\Validator;
+use App\Rules\PasswordLenght;
+use App\Rules\PasswordLower;
+use App\Rules\PasswordUpper;
+use App\Rules\PasswordSpec;
 
 class LoginController extends Controller
 {
@@ -66,7 +71,14 @@ dd($request->all());
         if($user)
         {
             
-            
+            $validator = Validator::make($request->all(), [
+                'email' => ['required', 'string', 'email', 'max:255', 'unique:users,email'],
+                'password' => ['required', 'confirmed', new PasswordLenght, new PasswordUpper, new PasswordLower, new PasswordSpec],
+              ]);
+              if($validator->fails()){
+                // fail si requête ne correspond pas à validation
+                return back()->with($validator);
+              }
             Auth::login($user);
             
             
@@ -106,7 +118,19 @@ dd($request->all());
         $valid = 0;
 
         if ($user) {
+
+            $validator = Validator::make($request->all(), [
+                'email' => ['required', 'string', 'email', 'max:255', 'unique:users,email'],
+                'password' => ['required', 'confirmed', new PasswordLenght, new PasswordUpper, new PasswordLower, new PasswordSpec],
+              ]);
+            if($validator->fails()){
+                // fail si requête ne correspond pas à validation
+            return back()->with($validator);
             Auth::login($user);
+            
+              }
+
+
         } else {
             $newUser = new User();
             $newUser->name = $userSocial->getName();
@@ -124,4 +148,6 @@ dd($request->all());
         else return 1;
     }
 
+
+ 
 }

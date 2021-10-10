@@ -59,13 +59,22 @@ Route::group(['middleware' => ['admin']], function () {
     Route::get('admin/export/', 'AdminController@export');
 });
 
+Route::get('change-password', 'ChangePasswordController@index');
+Route::post('change-password', 'ChangePasswordController@changePassword')->name('change.password');
 Route::get('/logout', 'HomeController@logout')->name('logout');
 Route::get('/cgu', 'HomeController@cgu')->name('cgu');
 Route::get('/mentions', 'HomeController@mentions')->name('mentions');
 Route::get('/confidentialite', 'HomeController@confidentialite')->name('confidentialite');
 Route::get('/cookies', 'HomeController@cookies')->name('cookies');
+Route::get('/kpi', 'AdminController@kpi')->name('kpi');
 Route::permanentRedirect('/employer', '/employer/login');
 Route::permanentRedirect('/admin', '/admin/login');
-Route::permanentRedirect('/home/public', '/home');
+Route::permanentRedirect('/home', '/competition');
 
 
+Route::post('subscribe','SubscriptionController@store')->name('subscribe');
+
+Route::get('/clear-cache', function() {
+    Artisan::call('cache:clear');
+    return "Cache is cleared";
+});

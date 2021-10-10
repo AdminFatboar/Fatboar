@@ -9,7 +9,7 @@ body {
 
 .mb-0, .my-0{
 color: #000;
-margin-left: 17px;
+margin-left: 5px;
 font-family: "Bangers";
 }
 
@@ -28,6 +28,34 @@ font-family: "Bangers";
 
 }
 
+.btn-primary{
+  color:#000 !important;
+  background-color: #f1aa4e !important;
+  border-color: #f1aa4e !important;
+  font-family: 'Bangers';
+}
+
+.btn-primary:onclick{
+  background-color: #f1aa4e !important;
+  border-color: #f1aa4e !important;
+
+}
+.btn-warning{
+  color:#000 !important;
+  font-family: 'Bangers';
+
+}
+.btn-warningNews{
+  background-color: #f1aa4e !important;
+  color:#000 !important;
+  font-family: 'Bangers';
+  margin-top:20px;
+}
+
+
+.btn-primary:not([disabled]):not(.disabled):active, .btn-primary:not([disabled]):not(.disabled).active, .show>.btn-primary.dropdown-toggle{
+  background-color:#f1aa4e;
+}
 .navbar.navbar-light .breadcrumb .nav-item.active > .nav-link,
 .navbar.navbar-light .navbar-nav .nav-item.active > .nav-link {
   background-color: transparent;

@@ -75,6 +75,9 @@
                                                     <td>Oui</td>
                                                     @endif
 
+
+
+
                                                     @if(!$ticket->is_rewarded)
                                                     <td><button id="btn{{$key}}" onclick="event.preventDefault(); setval({{$key}})" type="submit" class="btn btn-warning m-0 btn-sm">Valider</button></td>
                                                     @else
@@ -84,6 +87,8 @@
                                                 </tr>
 
                                                 @endforeach
+
+                                                
                                             </tbody>
                                         </table>
                                     </form>

@@ -17,6 +17,7 @@
 	<link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Montserrat'>
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
 	<script type="text/javascript" charset="UTF-8" src="//cdn.cookie-script.com/s/9b3f589889d2ccebe70288cc1e0f1794.js"></script>
+    <script id="mcjs">!function(c,h,i,m,p){m=c.createElement(h),p=c.getElementsByTagName(h)[0],m.async=1,m.src=i,p.parentNode.insertBefore(m,p)}(document,"script","https://chimpstatic.com/mcjs-connected/js/users/52f9257954a82f443d9d356eb/f128f6734d25d363267147cba.js");</script>
 	
     
     <!-- Global site tag (gtag.js) - Google Analytics -->

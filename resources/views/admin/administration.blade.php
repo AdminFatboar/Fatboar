@@ -14,7 +14,6 @@
     <link rel="stylesheet" href="/public/assets/css/style.css">
     <link rel="stylesheet" href="/public/assets/css/query.css">
 </head>
-
 <body>
 
     @include('layouts.header')
@@ -24,7 +23,7 @@
             <div class="col-lg-8 col-md-9">
                 <div class="row">
                     <div class="col-md-4">
-                        <ul class="nav nav-pills flex-column" id="pills-tab" role="tablist">
+                        <ul class="nav nav-pills flex-column p-4 border" id="pills-tab" role="tablist">
                             <li class="nav-item">
                                 <a class="nav-link active" id="pills-draw-tab" data-toggle="pill" href="#pills-draw" role="tab" aria-controls="pills-draw" aria-selected="true">Tirage au sort</a>
                             </li>
@@ -35,6 +34,12 @@
                                 <a class="nav-link" id="pills-users-tab" data-toggle="pill" href="#pills-users" role="tab" aria-controls="pills-users" aria-selected="false">Gestion des utilisateurs</a>
                             </li>
                             <li class="nav-item">
+                                <a class="nav-link" id="pills-admin-tab" data-toggle="pill" href="#pills-admin" role="tab" aria-controls="pills-admin" aria-selected="false">Gestion de l'administration</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{route('kpi')}}" target="_blank">KPI & Métriques</a>
+                            </li>
+                            <li class="nav-item">
                                 <a class="nav-link" href="{{url('admin/export')}}">Extraction de données</a>
                             </li>
                             <li class="nav-item mt-5">
@@ -42,6 +47,7 @@
                             </li>
                         </ul>
                     </div>
+                        
                     <div class="col-md-8">
                         @if(Session::has('the_pass_employer'))
                         <div class="alert alert-success">
@@ -65,8 +71,8 @@
                         </div>
                         @endif
 
-                        <div class="tab-content p-4 border" id="pills-tabContent">
-                            <div class="tab-pane fade show active" id="pills-draw" role="tabpanel" aria-labelledby="pills-draw-tab">
+                        <div class="tab-content" id="pills-tabContent">
+                            <div class="tab-pane fade show active p-4 border" id="pills-draw" role="tabpanel" aria-labelledby="pills-draw-tab">
                                 @if (session('status'))
                                 <div class="alert alert-danger">
                                     {{ session('status') }}
@@ -106,7 +112,7 @@
                                     </form>
                                 </div>
                             </div>
-                            <div class="tab-pane fade" id="pills-stats" role="tabpanel" aria-labelledby="pills-stats-tab">
+                            <div class="tab-pane fade p-4 border" id="pills-stats" role="tabpanel" aria-labelledby="pills-stats-tab">
                                 <table class="table table-striped">
                                     <thead>
                                         <tr>
@@ -114,7 +120,6 @@
                                             <th scope="col">Email</th>
                                             <th scope="col">Nom</th>
 											<th scope="col">Prénom</th>
-                                            
                                             <th scope="col">Gain</th>
                                         </tr>
                                     </thead>
@@ -136,7 +141,8 @@
 
                                 <a href="#" id="delete_stats" class="btn btn-danger">Réinitialiser les statistiques</a>
                             </div>
-                            <div class="tab-pane fade" id="pills-users" role="tabpanel" aria-labelledby="pills-users-tab">
+
+                            <div class="tab-pane fade p-4 border" id="pills-users" role="tabpanel" aria-labelledby="pills-users-tab">
                                 <div class="row">
                                     <div class="col-md-9">
                                         <h3>Utilisateurs</h3>
@@ -148,6 +154,8 @@
                                             <th scope="col">Id</th>
                                             <th scope="col">Email</th>
                                             <th scope="col">Nom</th>
+                                            <th scope="col">Date création</th>
+
                                             <th></th>
                                         </tr>
                                     </thead>
@@ -157,85 +165,82 @@
                                             <th>{{$result->id}}</th>
                                             <td>{{$result->email}}</td>
                                             <td>{{$result->name}}</td>
+                                            <td>{{$result->created_at}}</td>
+
                                             <td><button class="btn btn-outline-danger btn-sm deleteUser" data-id="{{$result->id}}" data-type="user"><i class="fa fa-trash"></i></button></td>
                                         </tr>
                                         @endforeach
                                     </tbody>
                                 </table>
-
-                                <div class="row mt-5">
-                                    <div class="col-md-9">
-                                        <h3>Employés</h3>
-                                    </div>
-                                    <div class="col-md-3">
-                                        <button class="btn btn-primary btn-sm" data-toggle="modal" data-target="#createEmployerModal"><i class="fa fa-plus"></i></button>
-                                    </div>
-                                </div>
-                                <table class="table table-striped">
-                                    <thead>
-                                        <tr>
-                                            <th scope="col">Id</th>
-                                            <th scope="col">Email</th>
-                                            <th scope="col">Nom</th>
-                                            <th></th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        @foreach($employers as $result)
-                                        <tr>
-                                            <th>{{$result->id}}</th>
-                                            <td>{{$result->email}}</td>
-                                            <td>{{$result->name}}</td>
-                                            <td><button class="btn btn-outline-danger btn-sm deleteUser" data-id="{{$result->id}}" data-type="employer"><i class="fa fa-trash"></i></button></td>
-                                        </tr>
-                                        @endforeach
-                                    </tbody>
-                                </table>
-
-                                <div class="row mt-5">
-                                    <div class="col-md-9">
-                                        <h3>Admins</h3>
-                                    </div>
-                                    <div class="col-md-3">
-                                        <button class="btn btn-primary btn-sm" data-toggle="modal" data-target="#createAdminModal"><i class="fa fa-plus"></i></button>
-                                    </div>
-                                </div>
-                                <table class="table table-striped">
-                                    <thead>
-                                        <tr>
-                                            <th scope="col">Id</th>
-                                            <th scope="col">Email</th>
-                                            <th scope="col">Nom</th>
-                                            <th></th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        @foreach($admins  as $result)
-                                        <tr>
-                                            <th>{{$result->id}}</th>
-                                            <td>{{$result->email}}</td>
-                                            <td>{{$result->name}}</td>
-                                            <td>
-                                                @if($result->id != Session::get('auth_user_id'))
-                                                    <button class="btn btn-outline-danger btn-sm deleteUser" data-id="{{$result->id}}" data-type="admin"><i class="fa fa-trash"></i></button>
-                                                @endif
-                                            </td>
-                                        </tr>
-                                        @endforeach
-                                    </tbody>
-                                </table>
                             </div>
-                            <div class="tab-pane fade" id="pills-contact" role="tabpanel" aria-labelledby="pills-contact-tab">Est
-                                quis nulla laborum officia ad nisi ex nostrud culpa Lorem excepteur aliquip dolor aliqua irure ex.
-                                Nulla ut duis ipsum nisi elit fugiat commodo sunt reprehenderit laborum veniam eu veniam. Eiusmod minim
-                                exercitation fugiat irure ex labore incididunt do fugiat commodo aliquip sit id deserunt reprehenderit
-                                aliquip nostrud. Amet ex cupidatat excepteur aute veniam incididunt mollit cupidatat esse irure officia
-                                elit do ipsum ullamco Lorem. Ullamco ut ad minim do mollit labore ipsum laboris ipsum commodo sunt
-                                tempor enim incididunt. Commodo quis sunt dolore aliquip aute tempor irure magna enim minim
-                                reprehenderit. Ullamco consectetur culpa veniam sint cillum aliqua incididunt velit ullamco sunt
-                                ullamco quis quis commodo voluptate. Mollit nulla nostrud adipisicing aliqua cupidatat aliqua pariatur
-                                mollit voluptate voluptate consequat non.</div>
+
+                                
+
+
+                            <div class="tab-pane fade p-4 border" id="pills-admin" role="tabpanel" aria-labelledby="pills-admin-tab">
+                            <div class="row">
+                                <div class="col-md-9">
+                                    <h3>Employés</h3>
+                                </div>
+                                <div class="col-md-3">
+                                    <button class="btn btn-primary btn-sm" data-toggle="modal" data-target="#createEmployerModal"><i class="fa fa-plus"></i></button>
+                                </div>
                             </div>
+                            <table class="table table-striped">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">Id</th>
+                                        <th scope="col">Email</th>
+                                        <th scope="col">Nom</th>
+                                        <th></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach($employers as $result)
+                                    <tr>
+                                        <th>{{$result->id}}</th>
+                                        <td>{{$result->email}}</td>
+                                        <td>{{$result->name}}</td>
+                                        <td><button class="btn btn-outline-danger btn-sm deleteUser" data-id="{{$result->id}}" data-type="employer"><i class="fa fa-trash"></i></button></td>
+                                    </tr>
+                                    @endforeach
+                                </tbody>
+                            </table>
+
+                            <div class="row mt-5">
+                                <div class="col-md-9">
+                                    <h3>Admins</h3>
+                                </div>
+                                <div class="col-md-3">
+                                    <button class="btn btn-primary btn-sm" data-toggle="modal" data-target="#createAdminModal"><i class="fa fa-plus"></i></button>
+                                </div>
+                            </div>
+                            <table class="table table-striped">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">Id</th>
+                                        <th scope="col">Email</th>
+                                        <th scope="col">Nom</th>
+                                        <th></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach($admins  as $result)
+                                    <tr>
+                                        <th>{{$result->id}}</th>
+                                        <td>{{$result->email}}</td>
+                                        <td>{{$result->name}}</td>
+                                        <td>
+                                            @if($result->id != Session::get('auth_user_id'))
+                                                <button class="btn btn-outline-danger btn-sm deleteUser" data-id="{{$result->id}}" data-type="admin"><i class="fa fa-trash"></i></button>
+                                            @endif
+                                        </td>
+                                    </tr>
+                                    @endforeach
+                                </tbody>
+                            </table>
+                        </div>
+                            
 
                     </div>
                 </div>
@@ -261,7 +266,7 @@
                             <input type="text" id="name" name="name" class="form-control" required>
                         </div>
                         <div class="form-group col-md-12">
-                            <label for="password">Mot de passe de l'administrateur</label>
+                            <label for="password">Mot de passe de l'employé</label>
                             <input type="text" id="password" name="password" class="form-control" required>
                             <small class="text-muted">Le mot de passe doit contenir au minimum une majuscule, une minuscule, un caractère spécial et doit faire au minimum 8 caractères.</small>
                         </div>
@@ -402,6 +407,16 @@
                 }
             });
         });
+
+        export default {
+    data() {
+      return {
+        rows: 100,
+        perPage: 1,
+        currentPage: 5
+      }
+    }
+  }
     </script>
 </body>
 
