@@ -40,7 +40,7 @@ class AdminController extends Controller
 
                 return redirect('/admin/page1');
             } else {
-                return redirect()->back()->withErrors($validator)->withInput();
+                return redirect()->back()->withErrors($validator);
             }
         }
         return view('admin.login');
@@ -201,12 +201,16 @@ class AdminController extends Controller
         return redirect()->route('admin.page1');
 
     }
+
     public function export() 
     {
         return Excel::download(new UsersExport, 'users.xlsx');
 
         
     }
+
+    
+
 
     public function kpi(){
         return view('kpi');

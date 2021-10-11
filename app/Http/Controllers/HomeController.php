@@ -59,9 +59,9 @@ public function test(Request $request)
             }
 
             $data = $request->validate([
-                'ticket' => 'required|unique:valid_tickets,number|numeric|min:10|max:10',
+                'ticket' => 'required|unique:tickets,number|numeric',
             ]);
-
+                
             $ticket = new Ticket();
             $ticket->number = $request->ticket;
             $ticket->user_id = Auth::user()->id;
@@ -134,8 +134,10 @@ public function test(Request $request)
         {
             $user = Auth::user();
             $validator = Validator::make($request->all(),[
+                'name' => 'required|alpha|max:30',
                 'firstname' => 'required|alpha|max:30',
                 'lastname' => 'required|alpha|max:30',
+                'email' => 'required|email',
             ]);
             if ($validator->fails()) {
                 // die('ttt');

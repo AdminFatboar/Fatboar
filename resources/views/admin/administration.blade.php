@@ -22,8 +22,10 @@
         <div class="row justify-content-center">
             <div class="col-lg-8 col-md-9">
                 <div class="row">
-                    <div class="col-md-4">
-                        <ul class="nav nav-pills flex-column p-4 border" id="pills-tab" role="tablist">
+                    <div class="col-md-4 p-4 border">
+                    <h4>Tableau de bord</h4>
+                    <hr>
+                        <ul class="nav nav-pills flex-column " id="pills-tab" role="tablist">
                             <li class="nav-item">
                                 <a class="nav-link active" id="pills-draw-tab" data-toggle="pill" href="#pills-draw" role="tab" aria-controls="pills-draw" aria-selected="true">Tirage au sort</a>
                             </li>
@@ -48,29 +50,8 @@
                         </ul>
                     </div>
                         
+                    
                     <div class="col-md-8">
-                        @if(Session::has('the_pass_employer'))
-                        <div class="alert alert-success">
-                            Employé créé avec succès.
-                        </div>
-                        @endif
-
-                        @if(Session::has('the_pass_admin'))
-                        <div class="alert alert-success">
-                            Admin créé avec succès.
-                        </div>
-                        @endif
-
-                        @if ($errors->any())
-                        <div class="alert alert-danger">
-                            <ul>
-                                @foreach ($errors->all() as $error)
-                                    <li>{{ $error }}</li>
-                                @endforeach
-                            </ul>
-                        </div>
-                        @endif
-
                         <div class="tab-content" id="pills-tabContent">
                             <div class="tab-pane fade show active p-4 border" id="pills-draw" role="tabpanel" aria-labelledby="pills-draw-tab">
                                 @if (session('status'))
@@ -84,9 +65,8 @@
                                         <p class="mb-0 font-small">Lancer le tirage au sort final</p>
                                         <button type="submit" class="btn btn-warning" @if($ticket) disabled @endif>Tirage aléatoire</button>
                                         @if($ticket)
-                                        <button type="button" class="btn btn-danger" id="reset_tirage">Réinitialiser le tirage</button>
+                                        <button type="button" class="btn btn-danger" id="delete_stats">Réinitialiser le tirage</button>
                                         @endif
-                                        
                                     </form>
                                 </div>
                                 <div class="py-2 text-center">
@@ -110,8 +90,11 @@
                                         </div>
 
                                     </form>
+                                    
                                 </div>
+                               
                             </div>
+                            
                             <div class="tab-pane fade p-4 border" id="pills-stats" role="tabpanel" aria-labelledby="pills-stats-tab">
                                 <table class="table table-striped">
                                     <thead>
@@ -174,11 +157,31 @@
                                 </table>
                             </div>
 
-                                
-
-
-                            <div class="tab-pane fade p-4 border" id="pills-admin" role="tabpanel" aria-labelledby="pills-admin-tab">
+                            
+                            
+                            <div class="tab-pane fade p-4 border {{ old('pills-admin') }}" id="pills-admin" role="tabpanel" aria-labelledby="pills-admin-tab">
                             <div class="row">
+                            @if(Session::has('the_pass_employer'))
+                            <div class="alert alert-success">
+                                Employé créé avec succès.
+                            </div>
+                            @endif
+
+                            @if(Session::has('the_pass_admin'))
+                            <div class="alert alert-success">
+                                Admin créé avec succès.
+                            </div>
+                            @endif
+
+                            @if ($errors->any())
+                            <div class="alert alert-danger">
+                                <ul>
+                                    @foreach ($errors->all() as $error)
+                                        <li>{{ $error }}</li>
+                                    @endforeach
+                                </ul>
+                            </div>
+                            @endif
                                 <div class="col-md-9">
                                     <h3>Employés</h3>
                                 </div>
@@ -205,6 +208,7 @@
                                     </tr>
                                     @endforeach
                                 </tbody>
+                                
                             </table>
 
                             <div class="row mt-5">
@@ -239,6 +243,7 @@
                                     @endforeach
                                 </tbody>
                             </table>
+                            
                         </div>
                             
 
@@ -408,15 +413,10 @@
             });
         });
 
-        export default {
-    data() {
-      return {
-        rows: 100,
-        perPage: 1,
-        currentPage: 5
-      }
-    }
-  }
+        $(document).ready(function () {
+        $('#pills-tab a[href="#{{ old('tab') }}"]').tab('show')
+        });
+
     </script>
 </body>
 

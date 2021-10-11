@@ -23,13 +23,13 @@ class ChangePasswordController extends Controller
         $user = Auth::user();
 
         if (!Hash::check($request->current_password, $user->password)) {
-            return redirect()->back()->withErrors($validator)->withInput();
+            return back()->with('failed', 'Vous avez fait une erreur dans le mot de passe');
 
         }
-
+        
         $user->password = Hash::make($request->password);
         $user->save();
 
-        return back()->with('success', 'Mot de passe modifié avec succès !');
+        return back()->with('gone', 'Mot de passe modifié avec succès !');
     }
 }

@@ -30,16 +30,16 @@
                             <hr>
                         <ul class="nav nav-pills flex-column" id="pills-tab" role="tablist">
                             <li class="nav-item">
-                                <a class="nav-link active" id="pills-personal-tab" data-toggle="pill" href="#pills-personal" role="tab" aria-controls="pills-personal" aria-selected="true">Informations personnelles</a>
+                                <a class="nav-link active" id="pills-personal-tab" data-toggle="tab" href="#pills-personal" role="tab" aria-controls="pills-personal" aria-selected="true">Informations personnelles</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" id="pills-security-tab" data-toggle="pill" href="#pills-security" role="tab" aria-controls="pills-security" aria-selected="false">Sécurité & Authentification</a>
+                                <a class="nav-link" id="pills-security-tab" data-toggle="tab" href="#pills-security" role="tab" aria-controls="pills-security" aria-selected="false">Sécurité & Authentification</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" id="pills-newsletter-tab" data-toggle="pill" href="#pills-newsletter" role="tab" aria-controls="pills-newsletter" aria-selected="false">Newsletter</a>
+                                <a class="nav-link" id="pills-newsletter-tab" data-toggle="tab" href="#pills-newsletter" role="tab" aria-controls="pills-newsletter" aria-selected="false">Newsletter</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" id="pills-earning-tab" data-toggle="pill" href="#pills-earning" role="tab" aria-controls="pills-earning" aria-selected="false">Gains obtenus</a>
+                                <a class="nav-link" id="pills-earning-tab" data-toggle="tab" href="#pills-earning" role="tab" aria-controls="pills-earning" aria-selected="false">Gains obtenus</a>
                             </li>
                             
                             <li class="nav-item mt-5">
@@ -80,7 +80,7 @@
                                             <div class="form-group row">
                                                 <label for="firstname" class="col-4 col-form-label">Prénom</label>
                                                 <div class="col-8">
-                                                    <input id="firstname" name="firstname"  placeholder="Prénom" class="@error('firstname') is-invalid @enderror form-control here" type="text"  value="{{Auth::user()->firstname}}" >
+                                                    <input id="firstname" name="firstname"  placeholder="Prénom" class="@error('firstname') is-invalid @enderror form-control here" type="text" >
                                                 </div>
                                             </div>
                                            
@@ -88,7 +88,7 @@
                                             <div class="form-group row">
                                                 <label for="lastname" class="col-4 col-form-label">Nom</label>
                                                 <div class="col-8">
-                                                    <input id="lastname" name="lastname"  placeholder="Nom de famille" class="@error('lastname') is-invalid @enderror form-control here" type="text" value="{{Auth::user()->lastname}}" >
+                                                    <input id="lastname" name="lastname"  placeholder="Nom de famille" class="@error('lastname') is-invalid @enderror form-control here" type="text">
                                                 </div>
                                             </div>
                                             
@@ -111,72 +111,52 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="tab-pane fade {{old('pills-security')}}" id="pills-security" role="tabpanel" aria-labelledby="pills-security-tab">
+                            <div class="tab-pane fade {{ old('pills-security') }}" id="pills-security" role="tabpanel" aria-labelledby="pills-security-tab">
                                 <h4>Securité & Authentification</h4>
                                 <hr>
-                                <div class="container">
-                                    <div class="row">
-                                        <div class="col-md-12" >
-                                            @if(session()->has('error'))
-                                                <span class="alert alert-danger">
-                                                    <strong>{{ session()->get('error') }}</strong>
-                                                </span>
-                                            @endif
-                                            <div class="card-body">
-                                                <form method="POST" action="{{ route('change.password') }}">
-                                                    @csrf
-                                                    <div class="form-group row">
-                                                        <label for="password" class="col-md-4 col-form-label">Nouveau mot de passe</label>
-                                                        <div class="col-8">
-                                                            <input type="password" class="form-control @error('password') is-invalid @enderror" name="password" placeholder="Insérez votre nouveau mot de passe">
-                                                            @error('password')
-                                                            <span class="invalid-feedback" role="alert">
-                                                                <strong>{{ $message }}</strong>
-                                                            </span>
-                                                            @enderror
-                                                        </div>
+                                    
+                                        <div class="card-body">
+                                            <form method="POST" action="{{ route('change.password') }}">
+                                                @csrf
+                                                <div class="form-group row">
+                                                    <label for="password" class="col-md-4 col-form-label">Nouveau mot de passe</label>
+                                                    <div class="col-8">
+                                                        <input type="password" class="@error('password') is-invalid @enderror form-control" name="password" placeholder="Insérez votre nouveau mot de passe">
                                                     </div>
+                                                </div>
 
-                                                    <div class="form-group row">
-                                                        <label for="password" class="col-md-4 col-form-label">Confirmez nouveau mot de passe</label>
-                                                        <div class="col-8">
-                                                            <input type="password" class="form-control @error('password_confirmation') is-invalid @enderror" name="password_confirmation" placeholder="Insérez de nouveau le mot de passe">
-                                                            @error('password_confirmation')
-                                                            <span class="invalid-feedback" role="alert">
-                                                                <strong>{{ $message }}</strong>
-                                                            </span>
-                                                            @enderror
-                                                        </div>
+                                                <div class="form-group row">
+                                                    <label for="password" class="col-md-4 col-form-label">Confirmez nouveau mot de passe</label>
+                                                    <div class="col-8">
+                                                        <input type="password" class="@error('password') is-invalid @enderror form-control" name="password_confirmation" placeholder="Insérez de nouveau le mot de passe">
                                                     </div>
-                                                    <div class="offset-4 col-8">
-                                                        <button name="submit" type="submit" class="btn btn-warning waves-effect waves-light">Modifier le mot de passe</button>
-                                                    </div>
-                                                    
-                                                </form>
-                                            </div>
+                                                </div>
+                                                <div class="offset-4 col-8">
+                                                    <button name="submit" type="submit" class="btn btn-warning waves-effect waves-light">Modifier le mot de passe</button>
+                                                </div>
+                                                
+                                            </form>
                                         </div>
                                     </div>
-                                </div>
-                            </div>
+
                             <div class="tab-pane fade {{old('pills-newsletter')}}" id="pills-newsletter" role="tabpanel" aria-labelledby="pills-newsletter-tab">
                                 <div class="row">
                                     <div class="col-md-12">
                                         <h4>Newsletter</h4>
                                             <hr>
                                             @if(session()->has('good'))
-                                                    <div class="alert alert-success">
-                                                        {{ session()->get('good') }}
-                                                    </div>
-                                                    @endif
-                                                    @if(session()->has('failure'))
-                                                    <div class="alert alert-danger">
-                                                        {{ session()->get('failure') }}
-                                                    </div>
-                                                    @endif       
+                                            <div class="alert alert-success">
+                                                {{ session()->get('good') }}
+                                            </div>
+                                            @endif
+                                            @if(session()->has('failure'))
+                                            <div class="alert alert-danger">
+                                                {{ session()->get('failure') }}
+                                            </div>
+                                            @endif       
                                         <div class="container">
                                             <div class="col-md-12">
                                                 <div class="row">
-                                                
                                                     <div class="card-body">                 
                                                         <form action="{{Route('subscribe')}}" method="POST">
                                                         @csrf
@@ -189,7 +169,7 @@
                                                                     <p><i>En renseignant mon adresse email et en validant mon inscription, je demande expréssement à recevoir la newsletter sur les produits, les services et évènements de Fatboar. Je suis informé que je pourrais me désinscrire à tout moment de la newsletter en cliquant sur le lien de désinscription prévu à cet effet dans les mails qui seront adressés.</i></p>
                                                                     <p><i>Merci de cocher cette case si vous souhaitez que nous transmettions ces informations à nos partenaires commerciaux afin de recevoir leurs offres en complément.</i></p>
                                                                     <label for="checkbox">		
-                                                                    <input id="checkbox" type="checkbox"> J'accepte les conditions de la newsletter.
+                                                                    <input id="checkbox" name ="checkbox" type="checkbox" required> J'accepte les conditions de la newsletter.
                                                                     </label>
                                                                 </div>
                                                             </div>
@@ -204,7 +184,7 @@
                                     </div>
                                 </div>
                             </div>    
-                            <div class="tab-pane fade {{old('tab') == 'pills-earning' ? ' active' : null}}" id="pills-earning" role="tabpanel" aria-labelledby="pills-earning-tab">
+                            <div class="tab-pane fade " id="pills-earning" role="tabpanel" aria-labelledby="pills-earning-tab">
                             <h4>Gains obtenus</h4>
                             <hr>
                                 <table class="table table-striped">
@@ -219,7 +199,7 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        @foreach(Auth::user()->tickets->where('is_rewarded',true) as $ticket)
+                                        @foreach(Auth::user()->tickets as $ticket)
                                         <tr>
                                             <th>{{$ticket->id}}</th>
                                             <td>{{$ticket->user->email}}</td>
@@ -282,10 +262,9 @@
         });
     </script>
     <script>
-    //redirect to specific tab
     $(document).ready(function () {
-        $('#pills-tab a[href="#{{ old('tab') }}"]').tab('show')
-    });
+$('#pills-tab a[href="#{{ old('tab') }}"]').tab('show')
+});
     </script>
 </body>
 </html>		

@@ -16,16 +16,16 @@ class SubscriptionController extends Controller
       // validation données côté back
       $validator = Validator::make($request->all(), [
           'email' => 'required|email',
-          'checkbox' => 'accepted',
       ]);
       if($validator->fails()){
         // fail si requête ne correspond pas à validation
         return back()->with($validator);
       }
-  
+      
+      
       if (NewsletterFacade::isSubscribed($request->email) ) {
         //envoie d'erreur, déjà souscrit
-        return back()->with('failure', 'Vous êtes déjà inscrit à notre newsletter !');
+        return back()->with('failure', 'Vous êtes déjà inscrit à notre newsletter !')->withInput(['tab'=>'pills-newsletter']);
   
       }
   
@@ -34,7 +34,7 @@ class SubscriptionController extends Controller
       // Add tags to subscriber
       Newsletter::addTags(['website'], $request->email);
       //include success message
-      return back()->with('good', 'Félicitations ! Vous venez de vous inscrire à notre newsletter.');
+      return back()->with('good', 'Félicitations ! Vous venez de vous inscrire à notre newsletter.')->withInput(['tab'=>'pills-newsletter']);
 
   
     }

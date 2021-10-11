@@ -27,4 +27,5 @@ Route::middleware('AuthApi')->group(function () {
     Route::post('/user/delete', 'Api\UserAPIController@deleteUser')->name('api.employer.delete');
 	Route::get('/user/id', 'Api\UserAPIController@GetUserById')->name('api.GetUser.ById');
 	Route::get('/user/tickets', 'Api\UserAPIController@GetTickets')->name('api.GetTickets.All');
+    Route::get('/user/valid_tickets', 'Api\UserAPIController@GetAllTicket')->name('api.GetAllTickets');
 });

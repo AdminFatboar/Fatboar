@@ -23,7 +23,9 @@
         <div class="row justify-content-center">
             <div class="col-lg-8 col-md-9">
                 <div class="row">
-                    <div class="col-md-4">
+                    <div class="col-md-4 p-4 border">
+                    <h4>Tableau de bord</h4>
+                    <hr>
                         <ul class="nav nav-pills flex-column" id="pills-tab" role="tablist">
                             <li class="nav-item">
                                 <a class="nav-link active" id="pills-draw-tab" data-toggle="pill" href="#pills-draw" role="tab" aria-controls="pills-draw" aria-selected="true">Remettre un gain</a>
@@ -91,9 +93,16 @@
                                                 
                                             </tbody>
                                         </table>
+                                        <div class="d-flex justify-content-center">
+                                        {!! $tickets->links() !!}
+                                    </div>
+                                        
+                                       
                                     </form>
+                                    
                                 </div>
                             </div>
+                            
                             <div class="tab-pane fade" id="pills-stats" role="tabpanel" aria-labelledby="pills-stats-tab">
                                 <table class="table table-striped">
                                     <thead>
@@ -120,17 +129,11 @@
                                         
                                     </tbody>
                                 </table>
+                                <div class="d-flex justify-content-center">
+                                        {!! $tickets->links() !!}
+                                    </div>
                             </div>
-                            <div class="tab-pane fade" id="pills-contact" role="tabpanel" aria-labelledby="pills-contact-tab">Est
-                                quis nulla laborum officia ad nisi ex nostrud culpa Lorem excepteur aliquip dolor aliqua irure ex.
-                                Nulla ut duis ipsum nisi elit fugiat commodo sunt reprehenderit laborum veniam eu veniam. Eiusmod minim
-                                exercitation fugiat irure ex labore incididunt do fugiat commodo aliquip sit id deserunt reprehenderit
-                                aliquip nostrud. Amet ex cupidatat excepteur aute veniam incididunt mollit cupidatat esse irure officia
-                                elit do ipsum ullamco Lorem. Ullamco ut ad minim do mollit labore ipsum laboris ipsum commodo sunt
-                                tempor enim incididunt. Commodo quis sunt dolore aliquip aute tempor irure magna enim minim
-                                reprehenderit. Ullamco consectetur culpa veniam sint cillum aliqua incididunt velit ullamco sunt
-                                ullamco quis quis commodo voluptate. Mollit nulla nostrud adipisicing aliqua cupidatat aliqua pariatur
-                                mollit voluptate voluptate consequat non.</div>
+                            
                         </div>
 
                     </div>

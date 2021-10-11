@@ -69,7 +69,7 @@
 											<label for="password_confirmation" class="form-label">Confirmez votre mot de passe</label>
                                             <input id="password_confirmation" type="password" class="@error('password') is-invalid @enderror form-control mb-4" placeholder="Entrez de nouveau votre mot de passe" name="password_confirmation" >
 											<label for="checkbox">
-												<input id="checkbox" type="checkbox" class="@error('checkbox') is-invalid @enderror">  J'accepte <a href="{{route('cgu')}}" target="_blank"><u>les conditions d'utilisation</u></a>
+												<input id="checkbox" type="checkbox" class="@error('checkbox') is-invalid @enderror" required>  J'accepte <a href="{{route('cgu')}}" target="_blank"><u>les conditions d'utilisation</u></a>
 											</label>
 
                                          

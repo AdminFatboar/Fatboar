@@ -35,7 +35,8 @@ class EmployerController extends Controller
 
     public function page1()
     {
-        $tickets = Ticket::all();
+        $tickets = Ticket::simplePaginate(5);
+        
 
         $win_results = DB::table('users')
             ->join('tickets', 'users.id', '=', 'tickets.user_id')
@@ -53,7 +54,7 @@ class EmployerController extends Controller
 
 
 
-        return view('employer.employee', [
+        return view('employer.employee', compact('tickets'), [
             'tickets' => $tickets,
             'win_results' => $win_results,
             //'non_win_results' => $non_win_results,

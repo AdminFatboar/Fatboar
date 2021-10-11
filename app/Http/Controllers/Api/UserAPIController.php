@@ -104,7 +104,7 @@ class UserAPIController extends Controller
         return response()->json(['success' => true]);
     }
 	
-	public function GetUserById (Request $request){
+	public function GetUserById (Request $users){
 		$users = DB::table('users')->get();
 		foreach ($users as $user)
 		{
@@ -113,12 +113,18 @@ class UserAPIController extends Controller
 		return response()->json(['users'=> $users], 200);
 	}
 	
-	public function GetTickets (Request $request){
+	public function GetTickets (Request $tickets){
 		$tickets = DB::table('tickets')->get();
 		foreach ($tickets as $ticket)
 		{
 			var_dump($tickets->collapse());
 		}
 		return response()->json(['tickets'=> $tickets], 200);
+	}
+
+    public function GetAllTicket (Request $validTicketss){
+		$validTicketss = DB::table('valid_tickets')->count();
+		
+		return response()->json(['valid_tickets'=> $validTicketss], 200);
 	}
 }

@@ -56,6 +56,7 @@ Route::group(['middleware' => ['admin']], function () {
     Route::post('admin/create-admin', 'AdminController@createAdmin')->name('admin.createAdmin');
     Route::post('admin/create-employer', 'AdminController@createEmployer')->name('admin.createEmployer');
 
+    Route::post('admin/compteur', 'AdminController@validTickets')->name('admin.validTickets');
     Route::get('admin/export/', 'AdminController@export');
 });
 

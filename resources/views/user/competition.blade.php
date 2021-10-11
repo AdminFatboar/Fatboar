@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <title>Participez au jeu-concours de l'enseigne Fatboar</title>
-    <meta name="description" content="Jeu-concours de Fatboar. Inscrivez-vous sur le site Fatboar, gagnez des prix et participez au tirage au sort final afin d'avoir la chance de remporter un Range Rover">
+    <meta name="description" content="Jeu-concours de Fatboar. Inscrivez-vous sur le site Fatboar, gagnez des prix et participez au tirage au sort pour avoir la chance de remporter un Range Rover">
     <link rel="icon" href="public/favicon.ico" type="image/x-icon" />
     <link rel="stylesheet" href="assets/plugin/fontawesome/css/all.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap">
@@ -325,6 +325,22 @@
     <script type="text/javascript" src="/public/assets/js/custom.js"></script>
     <script type="text/javascript" src="/public/assets/js/bootbox.js"></script>
 
+
+
+    @if(Session::has('message_type1'))
+    <script>
+        var dialog = bootbox.dialog({
+            title: '',
+            message: '<p class="h1 text-{{ Session::get("message_type1") }} text-center"><i class="{{ Session::get("message_icon") }}"></i></p>{{ Session::get("message") }} <b>{{ Session::get("ticketsReussi") }}</b>',
+            buttons: {
+                ok: {
+                    label: "Continuer",
+                    className: 'btn-primary btn-sm'
+                }
+            }
+        });
+    </script>
+    @endif
     @if(Session::has('message_type'))
     <script>
         var dialog = bootbox.dialog({
