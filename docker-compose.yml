@@ -1,0 +1,52 @@
+version: "3.7"
+services:
+  app:
+    build:
+      args:
+        user: test
+        uid: 1000
+      context: ./
+      dockerfile: Dockerfile
+    image: valentinelices/fatboar:1.0.0
+    container_name: val-app
+    restart: unless-stopped
+    working_dir: /var/www/
+    networks:
+      - fatboard
+    volumes:
+      - static-content:/var/www
+
+  db:
+    image: mariadb:10.6.4
+    container_name: fatboard-db
+    restart: unless-stopped
+    environment:
+      MYSQL_DATABASE: ${DB_DATABASE}
+      MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}
+      MYSQL_PASSWORD: ${DB_PASSWORD}
+      MYSQL_USER: ${DB_USERNAME}
+      SERVICE_TAGS: dev
+      SERVICE_NAME: mysql
+    volumes:
+      - ./docker-compose/mysql:/docker-entrypoint-initdb.d
+    networks:
+      - fatboard
+
+  nginx:
+    image: nginx:alpine
+    container_name: fatboard-nginx
+    restart: unless-stopped
+    ports:
+      - 8081:80
+    volumes:
+      - static-content:/var/www
+      - ./nginx:/etc/nginx/conf.d/
+    networks:
+      - fatboard
+
+networks:
+  fatboard:
+    driver: bridge
+
+volumes:
+  static-content:
