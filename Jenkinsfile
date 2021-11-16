@@ -10,8 +10,7 @@ pipeline {
         stage('SonarQube analysis') {
             -sonar-scanner \
             -Dsonar.projectKey=fatboar \
-            -Dsonar.sources=. \
-            -Dsonar.host.url=http://91.230.111.25:9000 \
+            -Dsonar.host.url="http://91.230.111.25:9000" \
             -Dsonar.login=a8a07dfc5c7fb1e148e12cfba1a2b822b3bdd590
             }
         }
