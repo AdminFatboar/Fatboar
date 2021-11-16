@@ -1,10 +1,22 @@
+
 pipeline {
     agent any
 
+    environment {
+        CI='true'
+        NODE_ENV='test'
+        MARIADB_PASSWORD='Cc3ed23c'
+        MARIADB_USER='tecadmin'
+        MARIADB_DB='mariadb'
+        PROJECT_NAME='fatboar'
+        
+    }
     stages {
-        stage('Build Docker Image') {
+        stage('Build') {
             steps {
-                sh "docker build -t valentinelices/fatboar:1.0.0 . --build-arg user=test --build-arg uid=1000 --no-cache"
+                echo 'Building..'
+                sh "docker-compose -f docker-compose.yml -f -p ${PROJECT_NAME} build --no-cache"
+                sh "docker-compose -f docker-compose.yml -f -p ${PROJECT_NAME} up -d"
             }
         }
     }
