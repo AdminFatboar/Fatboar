@@ -1,11 +1,16 @@
+
 pipeline {
     agent any
 
+    environment {
+        NODE_ENV='test'
+    }
     stages {
-        stage('Build Docker Image') {
+        stage('Build') {
             steps {
-                sh "docker build -t valentinelices/fatboar:1.0.0 . --build-arg user=test --build-arg uid=1000 --no-cache"
-            }
+               
+                sh "docker-compose --version"
+          }
         }
     }
 }
