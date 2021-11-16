@@ -8,8 +8,9 @@ pipeline {
     stages {
         stage('Build') {
             steps {
-               
-                sh "docker-compose --version"
+               cd "/tmp/fatboar-build-docker-image"
+                sh "docker-compose build"
+                sh "docker-compose up -d"
           }
         }
     }
