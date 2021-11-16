@@ -15,8 +15,8 @@ pipeline {
         stage('Build') {
             steps {
                 echo 'Building..'
-                sh "docker-compose -f docker-compose.yml -f -p ${PROJECT_NAME} build --no-cache"
-                sh "docker-compose -f docker-compose.yml -f -p ${PROJECT_NAME} up -d"
+                sh "docker-compose -f docker-compose.yml build --no-cache"
+                sh "docker-compose -f docker-compose.yml up -d"
             }
         }
     }
