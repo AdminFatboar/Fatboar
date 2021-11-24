@@ -17,14 +17,14 @@ services:
       - static-content:/var/www
 
   db:
-    image: mariadb:latest
+    image: mariadb:10.6.4
     container_name: fatboard-db
     restart: unless-stopped
     environment:
-      MYSQL_DATABASE: fatboar
-      MYSQL_ROOT_PASSWORD: Cc3ed23c
-      MYSQL_PASSWORD: Cc3ed23c
-      MYSQL_USER: root
+      MYSQL_DATABASE: ${DB_DATABASE}
+      MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}
+      MYSQL_PASSWORD: ${DB_PASSWORD}
+      MYSQL_USER: ${DB_USERNAME}
       SERVICE_TAGS: dev
       SERVICE_NAME: mysql
     volumes:
@@ -49,4 +49,4 @@ networks:
     driver: bridge
 
 volumes:
-  static-content:
+  static-content: 
