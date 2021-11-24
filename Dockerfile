@@ -15,14 +15,6 @@ RUN apt-get update && apt-get install -y \
     zip \
     unzip
 
-ENV COMPOSE_VERSION 1.29.2
-
-RUN apt-get update -q \
-	&& apt-get install -y -q --no-install-recommends curl ca-certificates \
-	&& curl -o /usr/local/bin/docker-compose -L \
-		"https://github.com/docker/compose/releases/download/${COMPOSE_VERSION}/docker-compose-Linux-x86_64" \
-	&& chmod +x /usr/local/bin/docker-compose
-
 # Clear cache
 RUN apt-get clean && rm -rf /var/lib/apt/lists/*
 
@@ -46,4 +38,4 @@ RUN composer install --no-interaction --optimize-autoloader --no-dev
 
 RUN chown -R $user:$user /var/www
 
-USER $user
+USER $user 
