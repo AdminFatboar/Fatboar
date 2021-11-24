@@ -8,8 +8,6 @@ services:
       context: ./
       dockerfile: Dockerfile
     image: valentinelices/fatboar:1.0.0
-    ports: 
-    - 8085:80
     container_name: val-app
     restart: unless-stopped
     working_dir: /var/www/
@@ -19,7 +17,7 @@ services:
       - static-content:/var/www
 
   db:
-    image: mariadb:10.6.4
+    image: mariadb:latest
     container_name: fatboard-db
     restart: unless-stopped
     environment:
