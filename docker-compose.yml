@@ -38,6 +38,7 @@ services:
       - ./docker-compose/mysql:/docker-entrypoint-initdb.d
     networks:
       - fatboard
+      - furiousducks
 
   nginx:
     image: nginx:alpine
@@ -52,6 +53,8 @@ services:
       - fatboard
 
 networks:
+  furiousducks:
+    external: true
   fatboard:
     driver: bridge
 
